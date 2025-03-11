@@ -190,7 +190,6 @@ var app = http.createServer(function(request,response){
     });
     request.on('end', function(){
       var post = qs.parse(body);
-
       if (post.email === 'test@a.a' && post.password === '111111') {
         response.writeHead(302, {
           'set-Cookie': [
@@ -204,6 +203,23 @@ var app = http.createServer(function(request,response){
       } else {
         response.end('Who??');
       }
+    });
+  } else if(pathname === '/logout_process') {
+    var body = '';
+    request.on('data', function(data){
+        body = body + data;
+    });
+    request.on('end', function(){
+      var post = qs.parse(body);
+      response.writeHead(302, {
+        'set-Cookie': [
+          `email=; Max-Age=0`,
+          `password=; Max-Age=0`,
+          `nickname=; Max-Age=0`,
+        ],
+        Location: `/`
+      });
+      response.end();
     });
   } else {
     response.writeHead(404);
