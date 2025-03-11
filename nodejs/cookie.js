@@ -16,7 +16,9 @@ http.createServer(function(request, response){
         'set-cookie': [
             'yummy_cookie=choco',
             'tasty_cookie=strawberry',
-            `Permanet=cookies: Max-Age=${60*60*24*30}`,
+            `Permanet=cookies; Max-Age=${60*60*24*30}`,
+            'Secure=Secure;, Secure',
+            'HttpOnly=HttpOnly; HttpOnly',
         ]
     });
     response.end('Cookie!!');
