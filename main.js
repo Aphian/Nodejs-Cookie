@@ -135,9 +135,6 @@ var app = http.createServer(function(request,response){
             response.end();
           })
       });
-    } else {
-      response.writeHead(404);
-      response.end('Not found');
     } else if(pathname === '/login') {
       fs.readdir('./data', function(error, filelist){
         var title = 'Login';
@@ -160,6 +157,9 @@ var app = http.createServer(function(request,response){
         response.writeHead(200);
         response.end(html);
       });
+    } else {
+      response.writeHead(404);
+      response.end('Not found');
     }
 });
 app.listen(3000);
