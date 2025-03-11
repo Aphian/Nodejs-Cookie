@@ -138,6 +138,28 @@ var app = http.createServer(function(request,response){
     } else {
       response.writeHead(404);
       response.end('Not found');
+    } else if(pathname === '/login') {
+      fs.readdir('./data', function(error, filelist){
+        var title = 'Login';
+        var list = template.list(filelist);
+        var html = template.HTML(title, list,
+          `
+          <form action="login_process" method="post">
+            <p>
+              <input type="text" name="email" placeholder="email"/>
+            </p>
+            <p>
+              <input type="password" name="password" placeholder="password"/>
+            </p>
+            <p>
+              <input type="submit" value="login"/>
+            </p>
+          </form>`,
+          `<a href="/create">create</a>`
+        );
+        response.writeHead(200);
+        response.end(html);
+      });
     }
 });
 app.listen(3000);
